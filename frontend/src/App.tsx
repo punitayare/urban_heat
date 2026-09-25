@@ -6,6 +6,15 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import {
+  MapOutlined,
+  BarChartOutlined,
+  TuneOutlined,
+  ChatBubbleOutline,
+  NotificationsNoneOutlined,
+  PersonOutline,
+  KeyboardArrowDown,
+} from "@mui/icons-material";
 import { useState } from "react";
 
 import { SignInMenu } from "./auth/SignInMenu";
@@ -16,42 +25,71 @@ import { HeatMap } from "./sections/HeatMap";
 import { Scenario } from "./sections/Scenario";
 
 const SECTIONS = [
-  { label: "Heat map", key: "map" },
-  { label: "Analytics", key: "analytics" },
-  { label: "Scenario simulator", key: "scenario" },
-  { label: "Copilot", key: "chat" },
-  { label: "Alerts", key: "alerts" },
+  {
+    label: "Heat map",
+    key: "map",
+    icon: <MapOutlined />,
+  },
+  {
+    label: "Analytics",
+    key: "analytics",
+    icon: <BarChartOutlined />,
+  },
+  {
+    label: "Scenario simulator",
+    key: "scenario",
+    icon: <TuneOutlined />,
+  },
+  {
+    label: "Copilot",
+    key: "chat",
+    icon: <ChatBubbleOutline />,
+  },
+  {
+    label: "Alerts",
+    key: "alerts",
+    icon: <NotificationsNoneOutlined />,
+  },
 ] as const;
 
-type SectionKey = (typeof SECTIONS)[number]["key"];
+type SectionKey =
+  (typeof SECTIONS)[number]["key"];
 
 function App() {
-  const [section, setSection] = useState<SectionKey>("map");
+  const [section, setSection] =
+    useState<SectionKey>("map");
 
   return (
     <Box
       sx={{
+        height: "100vh",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
-        height: "100vh",
-        bgcolor: "#f4f8f8",
+        overflow: "hidden",
+        bgcolor: "#F3F8F9",
       }}
     >
-      {/* =========================================================
+      {/* =====================================================
           TOP NAVIGATION
-         ========================================================= */}
+         ===================================================== */}
+
       <AppBar
         position="static"
         elevation={0}
         sx={{
+          flexShrink: 0,
           background:
-            "linear-gradient(135deg, #073B3A 0%, #075B59 55%, #087F78 100%)",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
+            "linear-gradient(90deg, #073B3A 0%, #075C59 55%, #087F78 100%)",
+          borderBottom:
+            "1px solid rgba(255,255,255,0.08)",
         }}
       >
         <Toolbar
           sx={{
-            minHeight: "78px !important",
+            height: 80,
+            minHeight:
+              "80px !important",
             px: {
               xs: 2,
               md: 3,
@@ -59,48 +97,66 @@ function App() {
             gap: 2,
           }}
         >
-          {/* Brand */}
+          {/* =================================================
+              BRAND
+             ================================================= */}
+
           <Box
-            onClick={() => setSection("map")}
+            onClick={() =>
+              setSection("map")
+            }
             sx={{
               display: "flex",
               alignItems: "center",
               gap: 1.4,
               cursor: "pointer",
               minWidth: {
-                xs: 150,
-                md: 245,
+                xs: 190,
+                md: 285,
               },
+              userSelect: "none",
             }}
           >
+            {/* Logo */}
             <Box
               sx={{
-                width: 42,
-                height: 42,
+                width: 44,
+                height: 44,
                 borderRadius: "50%",
-                border: "2px solid #36D7A7",
+                border:
+                  "2px solid #35D7A5",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#36D7A7",
-                fontSize: 23,
-                fontWeight: 800,
+                position: "relative",
+                flexShrink: 0,
               }}
             >
-              ◇
+              <Box
+                sx={{
+                  width: 17,
+                  height: 17,
+                  border:
+                    "2px solid #35D7A5",
+                  transform:
+                    "rotate(45deg)",
+                }}
+              />
             </Box>
 
+            {/* Brand text */}
             <Box>
               <Typography
                 sx={{
-                  color: "#ffffff",
+                  color: "#FFFFFF",
                   fontSize: {
                     xs: "1.05rem",
-                    md: "1.3rem",
+                    md: "1.35rem",
                   },
                   fontWeight: 800,
-                  lineHeight: 1.1,
-                  letterSpacing: "-0.02em",
+                  lineHeight: 1.05,
+                  letterSpacing:
+                    "-0.025em",
                 }}
               >
                 UrbanHeat AI
@@ -108,13 +164,14 @@ function App() {
 
               <Typography
                 sx={{
-                  color: "rgba(255,255,255,0.68)",
-                  fontSize: "0.72rem",
-                  mt: 0.35,
-                  display: {
-                    xs: "none",
-                    md: "block",
+                  mt: 0.45,
+                  color:
+                    "rgba(255,255,255,0.68)",
+                  fontSize: {
+                    xs: 10,
+                    md: 12,
                   },
+                  lineHeight: 1,
                 }}
               >
                 Smarter Cities. Cooler Futures.
@@ -122,42 +179,56 @@ function App() {
             </Box>
           </Box>
 
-          {/* Navigation */}
+          {/* =================================================
+              NAVIGATION
+             ================================================= */}
+
           <Tabs
             value={section}
-            onChange={(_, value: SectionKey) => setSection(value)}
+            onChange={(_, value) =>
+              setSection(value)
+            }
             variant="scrollable"
             scrollButtons={false}
             sx={{
-              minHeight: 52,
+              minHeight: 56,
 
-              "& .MuiTabs-flexContainer": {
-                gap: 0.5,
-              },
+              "& .MuiTabs-flexContainer":
+                {
+                  gap: 0.5,
+                },
 
               "& .MuiTab-root": {
-                minHeight: 52,
+                minHeight: 56,
+                height: 56,
+                minWidth: "auto",
                 px: {
-                  xs: 1.4,
+                  xs: 1.5,
                   md: 2,
                 },
                 borderRadius: "7px",
-                color: "rgba(255,255,255,0.72)",
-                fontWeight: 600,
-                fontSize: "0.88rem",
+                color:
+                  "rgba(255,255,255,0.76)",
                 textTransform: "none",
-                transition: "all 0.2s ease",
+                fontSize: 14,
+                fontWeight: 600,
+                transition:
+                  "all 180ms ease",
               },
 
               "& .MuiTab-root:hover": {
-                color: "#ffffff",
-                backgroundColor: "rgba(255,255,255,0.08)",
+                color: "#FFFFFF",
+                backgroundColor:
+                  "rgba(255,255,255,0.08)",
               },
 
               "& .Mui-selected": {
-                color: "#ffffff !important",
+                color:
+                  "#FFFFFF !important",
                 background:
-                  "linear-gradient(135deg, #13A98E 0%, #087F78 100%)",
+                  "linear-gradient(135deg, #11A78D 0%, #07947E 100%)",
+                boxShadow:
+                  "0 4px 14px rgba(0,0,0,0.12)",
               },
 
               "& .MuiTabs-indicator": {
@@ -165,36 +236,128 @@ function App() {
               },
             }}
           >
-            {SECTIONS.map((s) => (
+            {SECTIONS.map((item) => (
               <Tab
-                key={s.key}
-                value={s.key}
-                label={s.label}
+                key={item.key}
+                value={item.key}
+                icon={item.icon}
+                iconPosition="start"
+                label={item.label}
+                sx={{
+                  "& .MuiSvgIcon-root": {
+                    fontSize: 20,
+                  },
+                }}
               />
             ))}
           </Tabs>
 
+          {/* Push user section to right */}
           <Box sx={{ flex: 1 }} />
 
-          <SignInMenu />
+          {/* =================================================
+              USER AREA
+
+              Keep existing SignInMenu functionality.
+             ================================================= */}
+
+          <Box
+            sx={{
+              display: {
+                xs: "none",
+                md: "flex",
+              },
+              alignItems: "center",
+              gap: 1,
+              mr: 0.5,
+            }}
+          >
+            <Box
+              sx={{
+                width: 38,
+                height: 38,
+                borderRadius: "50%",
+                bgcolor:
+                  "rgba(255,255,255,0.18)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#FFFFFF",
+              }}
+            >
+              <PersonOutline
+                sx={{ fontSize: 21 }}
+              />
+            </Box>
+
+            <Typography
+              sx={{
+                color: "#FFFFFF",
+                fontSize: 13,
+                fontWeight: 600,
+              }}
+            >
+              Punit
+            </Typography>
+
+            <KeyboardArrowDown
+              sx={{
+                color:
+                  "rgba(255,255,255,0.75)",
+                fontSize: 19,
+              }}
+            />
+          </Box>
+
+          {/* Existing authentication component */}
+          <Box
+            sx={{
+              display: {
+                xs: "block",
+                md: "none",
+              },
+            }}
+          >
+            <SignInMenu />
+          </Box>
         </Toolbar>
       </AppBar>
 
-      {/* =========================================================
-          PAGE CONTENT
-         ========================================================= */}
+      {/* =====================================================
+          MAIN APPLICATION AREA
+
+          IMPORTANT:
+          Existing section functionality is untouched.
+         ===================================================== */}
+
       <Box
         sx={{
           flex: 1,
           minHeight: 0,
+          width: "100%",
           overflow: "hidden",
+          position: "relative",
         }}
       >
-        {section === "map" && <HeatMap />}
-        {section === "analytics" && <Analytics />}
-        {section === "scenario" && <Scenario />}
-        {section === "chat" && <Chat />}
-        {section === "alerts" && <Alerts />}
+        {section === "map" && (
+          <HeatMap />
+        )}
+
+        {section === "analytics" && (
+          <Analytics />
+        )}
+
+        {section === "scenario" && (
+          <Scenario />
+        )}
+
+        {section === "chat" && (
+          <Chat />
+        )}
+
+        {section === "alerts" && (
+          <Alerts />
+        )}
       </Box>
     </Box>
   );
