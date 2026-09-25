@@ -1,16 +1,4 @@
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Menu,
-  MenuItem,
-  Tab,
-  Tabs,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, Tab, Tabs, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
 
 import { SignInMenu } from "./auth/SignInMenu";
@@ -42,7 +30,7 @@ function App() {
         backgroundColor: "#f7f9fc",
       }}
     >
-      {/* ================= HEADER ================= */}
+      {/* HEADER */}
       <AppBar
         position="static"
         elevation={0}
@@ -62,7 +50,7 @@ function App() {
             gap: 2,
           }}
         >
-          {/* ================= BRAND ================= */}
+          {/* BRAND */}
           <Box
             sx={{
               display: "flex",
@@ -101,7 +89,7 @@ function App() {
               </Typography>
             </Box>
 
-            {/* Brand text */}
+            {/* Brand */}
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <Typography
                 sx={{
@@ -137,7 +125,7 @@ function App() {
             </Box>
           </Box>
 
-          {/* ================= NAVIGATION ================= */}
+          {/* NAVIGATION */}
           <Tabs
             value={section}
             onChange={(_, value: SectionKey) => setSection(value)}
@@ -189,10 +177,10 @@ function App() {
             ))}
           </Tabs>
 
-          {/* Spacer */}
+          {/* SPACER */}
           <Box sx={{ flex: 1 }} />
 
-          {/* ================= RIGHT SIDE ================= */}
+          {/* RIGHT SIDE */}
           <Box
             sx={{
               display: "flex",
@@ -200,7 +188,7 @@ function App() {
               gap: 1,
             }}
           >
-            {/* Status */}
+            {/* System status */}
             <Box
               sx={{
                 display: {
@@ -237,13 +225,13 @@ function App() {
               </Typography>
             </Box>
 
-            {/* Existing authentication component */}
+            {/* Authentication */}
             <SignInMenu />
           </Box>
         </Toolbar>
       </AppBar>
 
-      {/* ================= CONTENT ================= */}
+      {/* CONTENT */}
       <Box
         sx={{
           flex: 1,
