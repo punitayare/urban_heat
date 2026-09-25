@@ -19,8 +19,7 @@ import { Alerts } from "./sections/Alerts";
 import { Analytics } from "./sections/Analytics";
 import { Chat } from "./sections/Chat";
 import { HeatMap } from "./sections/HeatMap";
-import { Overview } from "./sections/Overview";
-import { Scenario } from "./sections/Scenario";
+
 
 const SECTIONS = [
   { label: "Overview", key: "overview" },
