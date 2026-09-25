@@ -118,7 +118,7 @@ export function HeatMap() {
               );
               layerInstance.on("click", () => setSelectedCellId(cell_id));
               layerInstance.on("mouseover", (e: LeafletMouseEvent) => {
-                (e.target as Path).setStyle({ weight: 2, color: "#0b0b0b" });
+                (e.target as Path).setStyle({ weight: 2, color: "#0b0b0a" });
               });
               layerInstance.on("mouseout", (e: LeafletMouseEvent) => {
                 (e.target as Path).setStyle({ weight: 0.3, color: "#ffffff" });
