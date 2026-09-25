@@ -1,23 +1,19 @@
 import {
   AppBar,
+  Badge,
   Box,
+  IconButton,
   Tab,
   Tabs,
   Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
-
-import {
-  MapOutlined,
-  BarChartOutlined,
-  TuneOutlined,
-  ChatBubbleOutlined,
-  NotificationsNoneOutlined,
-  PersonOutlined,
-  KeyboardArrowDown,
-} from "@mui/icons-material";
-
 import { useState } from "react";
+
+import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
+import ThermostatRoundedIcon from "@mui/icons-material/ThermostatRounded";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 
 import { SignInMenu } from "./auth/SignInMenu";
 import { Alerts } from "./sections/Alerts";
@@ -30,27 +26,22 @@ const SECTIONS = [
   {
     label: "Heat map",
     key: "map",
-    icon: <MapOutlined />,
   },
   {
     label: "Analytics",
     key: "analytics",
-    icon: <BarChartOutlined />,
   },
   {
     label: "Scenario simulator",
     key: "scenario",
-    icon: <TuneOutlined />,
   },
   {
     label: "Copilot",
     key: "chat",
-    icon: <ChatBubbleOutlined />,
   },
   {
     label: "Alerts",
     key: "alerts",
-    icon: <NotificationsNoneOutlined />,
   },
 ] as const;
 
@@ -63,34 +54,32 @@ function App() {
 
   return (
     <Box
+      className="app-shell"
       sx={{
         height: "100vh",
         width: "100%",
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
-        bgcolor: "#F3F8F9",
+        backgroundColor: "#F4F8F9",
       }}
     >
-      {/* =====================================================
-          NAVIGATION BAR
-         ===================================================== */}
-
       <AppBar
-        position="static"
+        position="sticky"
         elevation={0}
         sx={{
-          flexShrink: 0,
           background:
             "linear-gradient(90deg, #073B3A 0%, #075C59 55%, #087F78 100%)",
           borderBottom:
             "1px solid rgba(255,255,255,0.08)",
+          flexShrink: 0,
         }}
       >
         <Toolbar
+          className="app-toolbar"
           sx={{
-            height: 80,
             minHeight: "80px !important",
+            height: 80,
             px: {
               xs: 2,
               md: 3,
@@ -98,11 +87,9 @@ function App() {
             gap: 2,
           }}
         >
-          {/* =================================================
-              BRAND
-             ================================================= */}
-
+          {/* BRAND */}
           <Box
+            className="brand"
             onClick={() => setSection("map")}
             sx={{
               display: "flex",
@@ -113,11 +100,11 @@ function App() {
                 xs: 190,
                 md: 285,
               },
-              userSelect: "none",
+              flexShrink: 0,
             }}
           >
-            {/* Logo */}
             <Box
+              className="brand-mark"
               sx={{
                 width: 44,
                 height: 44,
@@ -126,58 +113,51 @@ function App() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                position: "relative",
-                flexShrink: 0,
               }}
             >
-              <Box
+              <ThermostatRoundedIcon
                 sx={{
-                  width: 17,
-                  height: 17,
-                  border: "2px solid #35D7A5",
-                  transform: "rotate(45deg)",
+                  color: "#35D7A5",
+                  fontSize: 25,
                 }}
               />
             </Box>
 
-            {/* Brand */}
             <Box>
               <Typography
+                className="brand-name"
                 sx={{
                   color: "#FFFFFF",
+                  fontWeight: 800,
                   fontSize: {
                     xs: "1.05rem",
                     md: "1.35rem",
                   },
-                  fontWeight: 800,
-                  lineHeight: 1.05,
+                  lineHeight: 1.1,
                   letterSpacing: "-0.025em",
                 }}
               >
-                UrbanHeat AI
+                UrbanHeat <span>AI</span>
               </Typography>
 
               <Typography
+                className="brand-subtitle"
                 sx={{
-                  mt: 0.45,
                   color:
                     "rgba(255,255,255,0.68)",
                   fontSize: {
                     xs: 10,
                     md: 12,
                   },
-                  lineHeight: 1,
+                  mt: 0.35,
                 }}
               >
-                Smarter Cities. Cooler Futures.
+                Mumbai climate intelligence
               </Typography>
             </Box>
           </Box>
 
-          {/* =================================================
-              NAVIGATION TABS
-             ================================================= */}
-
+          {/* NAVIGATION */}
           <Tabs
             value={section}
             onChange={(_, value: SectionKey) =>
@@ -202,17 +182,15 @@ function App() {
                 },
                 borderRadius: "7px",
                 color:
-                  "rgba(255,255,255,0.76)",
+                  "rgba(255,255,255,0.75)",
                 textTransform: "none",
                 fontSize: 14,
                 fontWeight: 600,
-                transition:
-                  "all 180ms ease",
               },
 
               "& .MuiTab-root:hover": {
                 color: "#FFFFFF",
-                backgroundColor:
+                background:
                   "rgba(255,255,255,0.08)",
               },
 
@@ -234,103 +212,47 @@ function App() {
               <Tab
                 key={item.key}
                 value={item.key}
-                icon={item.icon}
-                iconPosition="start"
                 label={item.label}
-                sx={{
-                  "& .MuiSvgIcon-root": {
-                    fontSize: 20,
-                  },
-                }}
               />
             ))}
           </Tabs>
 
-          {/* Push user section to the right */}
           <Box sx={{ flex: 1 }} />
 
-          {/* =================================================
-              DESKTOP USER DISPLAY
-             ================================================= */}
-
-          <Box
-            sx={{
-              display: {
-                xs: "none",
-                md: "flex",
-              },
-              alignItems: "center",
-              gap: 1,
-              mr: 0.5,
-            }}
-          >
-            <Box
-              sx={{
-                width: 38,
-                height: 38,
-                borderRadius: "50%",
-                bgcolor:
-                  "rgba(255,255,255,0.18)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#FFFFFF",
-              }}
-            >
-              <PersonOutlined
-                sx={{
-                  fontSize: 21,
-                }}
-              />
-            </Box>
-
-            <Typography
+          {/* ALERT BUTTON */}
+          <Tooltip title="Monitoring alerts">
+            <IconButton
+              onClick={() =>
+                setSection("alerts")
+              }
               sx={{
                 color: "#FFFFFF",
-                fontSize: 13,
-                fontWeight: 600,
+                display: {
+                  xs: "none",
+                  sm: "inline-flex",
+                },
               }}
             >
-              Punit
-            </Typography>
+              <Badge
+                color="warning"
+                variant="dot"
+              >
+                <NotificationsNoneRoundedIcon />
+              </Badge>
+            </IconButton>
+          </Tooltip>
 
-            <KeyboardArrowDown
-              sx={{
-                color:
-                  "rgba(255,255,255,0.75)",
-                fontSize: 19,
-              }}
-            />
-          </Box>
-
-          {/* =================================================
-              EXISTING SIGN-IN MENU
-             ================================================= */}
-
-          <Box
-            sx={{
-              display: {
-                xs: "block",
-                md: "none",
-              },
-            }}
-          >
-            <SignInMenu />
-          </Box>
+          {/* SIGN IN */}
+          <SignInMenu />
         </Toolbar>
       </AppBar>
 
-      {/* =====================================================
-          MAIN CONTENT
-
-          Existing components are kept unchanged.
-         ===================================================== */}
-
+      {/* MAIN CONTENT */}
       <Box
+        className="app-content"
         sx={{
           flex: 1,
           minHeight: 0,
-          width: "100%",
           overflow: "hidden",
           position: "relative",
         }}
@@ -354,6 +276,24 @@ function App() {
         {section === "alerts" && (
           <Alerts />
         )}
+      </Box>
+
+      {/* MOBILE HOME */}
+      <Box
+        className="mobile-home"
+        onClick={() => setSection("map")}
+        sx={{
+          display: {
+            xs: "none",
+            sm: "none",
+          },
+        }}
+      >
+        <HomeRoundedIcon fontSize="small" />
+
+        <Typography variant="caption">
+          Home
+        </Typography>
       </Box>
     </Box>
   );
