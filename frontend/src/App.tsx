@@ -9,7 +9,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-
 import { useState } from "react";
 
 import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
@@ -24,277 +23,193 @@ import { HeatMap } from "./sections/HeatMap";
 import { Scenario } from "./sections/Scenario";
 
 const SECTIONS = [
-  {
-    label: "Heat map",
-    key: "map",
-  },
-  {
-    label: "Analytics",
-    key: "analytics",
-  },
-  {
-    label: "Scenario simulator",
-    key: "scenario",
-  },
-  {
-    label: "Copilot",
-    key: "chat",
-  },
-  {
-    label: "Alerts",
-    key: "alerts",
-  },
+  { label: "Heat map", key: "map" },
+  { label: "Analytics", key: "analytics" },
+  { label: "Scenario simulator", key: "scenario" },
+  { label: "Copilot", key: "chat" },
+  { label: "Alerts", key: "alerts" },
 ] as const;
 
-type SectionKey =
-  (typeof SECTIONS)[number]["key"];
+type SectionKey = (typeof SECTIONS)[number]["key"];
 
 function App() {
-  const [section, setSection] =
-    useState<SectionKey>("map");
+  const [section, setSection] = useState<SectionKey>("map");
+
+  const currentIndex = SECTIONS.findIndex(
+    (item) => item.key === section
+  );
+
+  const handleTabChange = (
+    _event: React.SyntheticEvent,
+    newValue: number
+  ) => {
+    setSection(SECTIONS[newValue].key);
+  };
 
   return (
     <Box
-      className="app-shell"
       sx={{
-        height: "100vh",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        overflow: "hidden",
-        backgroundColor: "#F4F8F9",
+        minHeight: "100vh",
+        bgcolor: "#f5f7f8",
       }}
     >
       <AppBar
         position="sticky"
         elevation={0}
         sx={{
+          bgcolor: "#073b3a",
           background:
-            "linear-gradient(90deg, #073B3A 0%, #075C59 55%, #087F78 100%)",
-          borderBottom:
-            "1px solid rgba(255,255,255,0.08)",
-          flexShrink: 0,
+            "linear-gradient(90deg, #073b3a 0%, #075b58 55%, #087f78 100%)",
         }}
       >
         <Toolbar
-          className="app-toolbar"
           sx={{
-            minHeight: "80px !important",
-            height: 80,
-            px: {
-              xs: 2,
-              md: 3,
-            },
+            minHeight: { xs: 64, md: 72 },
+            px: { xs: 1.5, md: 3 },
             gap: 2,
           }}
         >
-          {/* BRAND */}
           <Box
-            className="brand"
-            onClick={() => setSection("map")}
             sx={{
               display: "flex",
               alignItems: "center",
-              gap: 1.4,
-              cursor: "pointer",
-              minWidth: {
-                xs: 190,
-                md: 285,
-              },
-              flexShrink: 0,
+              gap: 1.2,
+              minWidth: "fit-content",
             }}
           >
             <Box
-              className="brand-mark"
               sx={{
-                width: 44,
-                height: 44,
-                borderRadius: "50%",
-                border: "2px solid #35D7A5",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                width: 38,
+                height: 38,
+                borderRadius: 2,
+                display: "grid",
+                placeItems: "center",
+                bgcolor: "rgba(255,255,255,.12)",
               }}
             >
-              <ThermostatRoundedIcon
-                sx={{
-                  color: "#35D7A5",
-                  fontSize: 25,
-                }}
-              />
+              <ThermostatRoundedIcon />
             </Box>
 
             <Box>
               <Typography
-                className="brand-name"
                 sx={{
-                  color: "#FFFFFF",
                   fontWeight: 800,
-                  fontSize: {
-                    xs: "1.05rem",
-                    md: "1.35rem",
-                  },
+                  fontSize: { xs: 16, md: 19 },
                   lineHeight: 1.1,
-                  letterSpacing: "-0.025em",
                 }}
               >
-                UrbanHeat <span>AI</span>
+                UrbanHeat AI
               </Typography>
 
               <Typography
-                className="brand-subtitle"
                 sx={{
-                  color:
-                    "rgba(255,255,255,0.68)",
-                  fontSize: {
-                    xs: 10,
-                    md: 12,
-                  },
-                  mt: 0.35,
+                  fontSize: 11,
+                  opacity: 0.72,
+                  letterSpacing: ".08em",
+                  textTransform: "uppercase",
                 }}
               >
-                Mumbai climate intelligence
+                Mumbai Climate Intelligence
               </Typography>
             </Box>
           </Box>
 
-          {/* NAVIGATION */}
           <Tabs
-            value={section}
-            onChange={(_, value: SectionKey) =>
-              setSection(value)
-            }
+            value={currentIndex}
+            onChange={handleTabChange}
+            textColor="inherit"
+            indicatorColor="secondary"
             variant="scrollable"
-            scrollButtons={false}
+            scrollButtons="auto"
             sx={{
-              minHeight: 56,
-
-              "& .MuiTabs-flexContainer": {
-                gap: 0.5,
-              },
-
+              ml: { xs: 0, md: 4 },
+              flex: 1,
+              minHeight: 72,
               "& .MuiTab-root": {
-                minHeight: 56,
-                height: 56,
-                minWidth: "auto",
-                px: {
-                  xs: 1.5,
-                  md: 2,
-                },
-                borderRadius: "7px",
-                color:
-                  "rgba(255,255,255,0.75)",
+                minHeight: 72,
                 textTransform: "none",
-                fontSize: 14,
                 fontWeight: 600,
+                color: "rgba(255,255,255,.72)",
               },
-
-              "& .MuiTab-root:hover": {
-                color: "#FFFFFF",
-                background:
-                  "rgba(255,255,255,0.08)",
-              },
-
               "& .Mui-selected": {
-                color:
-                  "#FFFFFF !important",
-                background:
-                  "linear-gradient(135deg, #11A78D 0%, #07947E 100%)",
-                boxShadow:
-                  "0 4px 14px rgba(0,0,0,0.12)",
+                color: "#fff",
               },
-
               "& .MuiTabs-indicator": {
-                display: "none",
+                height: 3,
+                borderRadius: 3,
               },
             }}
           >
             {SECTIONS.map((item) => (
-              <Tab
-                key={item.key}
-                value={item.key}
-                label={item.label}
-              />
+              <Tab key={item.key} label={item.label} />
             ))}
           </Tabs>
 
-          <Box sx={{ flex: 1 }} />
-
-          {/* ALERT BUTTON */}
-          <Tooltip title="Monitoring alerts">
+          <Tooltip title="Alerts">
             <IconButton
-              onClick={() =>
-                setSection("alerts")
-              }
+              onClick={() => setSection("alerts")}
               sx={{
-                color: "#FFFFFF",
-                display: {
-                  xs: "none",
-                  sm: "inline-flex",
+                color: "#fff",
+                bgcolor: "rgba(255,255,255,.08)",
+                "&:hover": {
+                  bgcolor: "rgba(255,255,255,.16)",
                 },
               }}
             >
-              <Badge
-                color="warning"
-                variant="dot"
-              >
+              <Badge color="error" variant="dot">
                 <NotificationsNoneRoundedIcon />
               </Badge>
             </IconButton>
           </Tooltip>
 
-          {/* SIGN IN */}
           <SignInMenu />
         </Toolbar>
       </AppBar>
 
-      {/* MAIN CONTENT */}
       <Box
-        className="app-content"
+        component="main"
         sx={{
-          flex: 1,
-          minHeight: 0,
-          overflow: "hidden",
-          position: "relative",
+          width: "100%",
+          minHeight: "calc(100vh - 72px)",
         }}
       >
-        {section === "map" && (
-          <HeatMap />
-        )}
+        {section === "map" && <HeatMap />}
 
-        {section === "analytics" && (
-          <Analytics />
-        )}
+        {section === "analytics" && <Analytics />}
 
-        {section === "scenario" && (
-          <Scenario />
-        )}
+        {section === "scenario" && <Scenario />}
 
-        {section === "chat" && (
-          <Chat />
-        )}
+        {section === "chat" && <Chat />}
 
-        {section === "alerts" && (
-          <Alerts />
-        )}
+        {section === "alerts" && <Alerts />}
       </Box>
 
-      {/* MOBILE HOME */}
       <Box
-        className="mobile-home"
-        onClick={() => setSection("map")}
         sx={{
-          display: {
-            xs: "none",
-            sm: "none",
-          },
+          display: { xs: "flex", md: "none" },
+          position: "fixed",
+          bottom: 16,
+          right: 16,
+          zIndex: 1000,
         }}
       >
-        <HomeRoundedIcon fontSize="small" />
-
-        <Typography variant="caption">
-          Home
-        </Typography>
+        <Tooltip title="Heat map">
+          <IconButton
+            onClick={() => setSection("map")}
+            sx={{
+              width: 52,
+              height: 52,
+              color: "#fff",
+              bgcolor: "#075b58",
+              boxShadow: "0 8px 25px rgba(0,0,0,.2)",
+              "&:hover": {
+                bgcolor: "#064b49",
+              },
+            }}
+          >
+            <HomeRoundedIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
     </Box>
   );
