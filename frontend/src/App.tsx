@@ -28,6 +28,7 @@ function App() {
           <Typography variant="h6" component="div" sx={{ mr: 4 }}>
             UrbanHeat AI
           </Typography>
+
           <Tabs
             value={section}
             onChange={(_, value: SectionKey) => setSection(value)}
@@ -35,10 +36,16 @@ function App() {
             indicatorColor="secondary"
           >
             {SECTIONS.map((s) => (
-              <Tab key={s.key} value={s.key} label={s.label} />
+              <Tab
+                key={s.key}
+                value={s.key}
+                label={s.label}
+              />
             ))}
           </Tabs>
+
           <Box sx={{ flex: 1 }} />
+
           <SignInMenu />
         </Toolbar>
       </AppBar>
