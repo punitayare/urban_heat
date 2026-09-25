@@ -1,19 +1,12 @@
 import {
   AppBar,
-  Badge,
   Box,
-  IconButton,
   Tab,
   Tabs,
   Toolbar,
-  Tooltip,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-
-import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
-import ThermostatRoundedIcon from "@mui/icons-material/ThermostatRounded";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 
 import { SignInMenu } from "./auth/SignInMenu";
 import { Alerts } from "./sections/Alerts";
@@ -23,10 +16,10 @@ import { HeatMap } from "./sections/HeatMap";
 import { Scenario } from "./sections/Scenario";
 
 const SECTIONS = [
-  { label: "Heat intelligence", key: "map" },
-  { label: "Hotspots", key: "analytics" },
-  { label: "Scenarios", key: "scenario" },
-  { label: "AI Copilot", key: "chat" },
+  { label: "Heat map", key: "map" },
+  { label: "Analytics", key: "analytics" },
+  { label: "Scenario simulator", key: "scenario" },
+  { label: "Copilot", key: "chat" },
   { label: "Alerts", key: "alerts" },
 ] as const;
 
@@ -36,73 +29,139 @@ function App() {
   const [section, setSection] = useState<SectionKey>("map");
 
   return (
-    <Box className="app-shell">
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        bgcolor: "#f4f8f8",
+      }}
+    >
+      {/* =========================================================
+          TOP NAVIGATION
+         ========================================================= */}
       <AppBar
-        position="sticky"
+        position="static"
         elevation={0}
         sx={{
           background:
-            "linear-gradient(135deg, #063B8F 0%, #0B5ED7 55%, #087FCE 100%)",
-          color: "#ffffff",
-          boxShadow: "0 4px 20px rgba(11, 94, 215, 0.25)",
+            "linear-gradient(135deg, #073B3A 0%, #075B59 55%, #087F78 100%)",
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
         }}
       >
-        <Toolbar className="app-toolbar">
-
-          {/* BRAND */}
+        <Toolbar
+          sx={{
+            minHeight: "78px !important",
+            px: {
+              xs: 2,
+              md: 3,
+            },
+            gap: 2,
+          }}
+        >
+          {/* Brand */}
           <Box
-            className="brand"
             onClick={() => setSection("map")}
             sx={{
-              cursor: "pointer",
               display: "flex",
               alignItems: "center",
+              gap: 1.4,
+              cursor: "pointer",
+              minWidth: {
+                xs: 150,
+                md: 245,
+              },
             }}
           >
-            <Box className="brand-mark">
-              <ThermostatRoundedIcon />
+            <Box
+              sx={{
+                width: 42,
+                height: 42,
+                borderRadius: "50%",
+                border: "2px solid #36D7A7",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#36D7A7",
+                fontSize: 23,
+                fontWeight: 800,
+              }}
+            >
+              ◇
             </Box>
 
             <Box>
-              <Typography className="brand-name">
-                UrbanHeat <span>AI</span>
+              <Typography
+                sx={{
+                  color: "#ffffff",
+                  fontSize: {
+                    xs: "1.05rem",
+                    md: "1.3rem",
+                  },
+                  fontWeight: 800,
+                  lineHeight: 1.1,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                UrbanHeat AI
               </Typography>
 
-              <Typography className="brand-subtitle">
-                Mumbai climate intelligence
+              <Typography
+                sx={{
+                  color: "rgba(255,255,255,0.68)",
+                  fontSize: "0.72rem",
+                  mt: 0.35,
+                  display: {
+                    xs: "none",
+                    md: "block",
+                  },
+                }}
+              >
+                Smarter Cities. Cooler Futures.
               </Typography>
             </Box>
           </Box>
 
-          {/* NAVIGATION */}
+          {/* Navigation */}
           <Tabs
             value={section}
             onChange={(_, value: SectionKey) => setSection(value)}
             variant="scrollable"
-            scrollButtons="auto"
+            scrollButtons={false}
             sx={{
-              marginLeft: 4,
+              minHeight: 52,
+
+              "& .MuiTabs-flexContainer": {
+                gap: 0.5,
+              },
 
               "& .MuiTab-root": {
-                color: "rgba(255,255,255,0.70)",
+                minHeight: 52,
+                px: {
+                  xs: 1.4,
+                  md: 2,
+                },
+                borderRadius: "7px",
+                color: "rgba(255,255,255,0.72)",
                 fontWeight: 600,
+                fontSize: "0.88rem",
                 textTransform: "none",
-                fontSize: "0.95rem",
-                minHeight: 64,
+                transition: "all 0.2s ease",
               },
 
               "& .MuiTab-root:hover": {
                 color: "#ffffff",
+                backgroundColor: "rgba(255,255,255,0.08)",
               },
 
               "& .Mui-selected": {
                 color: "#ffffff !important",
+                background:
+                  "linear-gradient(135deg, #13A98E 0%, #087F78 100%)",
               },
 
               "& .MuiTabs-indicator": {
-                backgroundColor: "#5EE7FF",
-                height: 3,
-                borderRadius: "3px 3px 0 0",
+                display: "none",
               },
             }}
           >
@@ -117,49 +176,25 @@ function App() {
 
           <Box sx={{ flex: 1 }} />
 
-          {/* ALERTS */}
-          <Tooltip title="Monitoring alerts">
-            <IconButton
-              sx={{ color: "#ffffff" }}
-              onClick={() => setSection("alerts")}
-            >
-              <Badge color="warning" variant="dot">
-                <NotificationsNoneRoundedIcon />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-
-          {/* SIGN IN */}
           <SignInMenu />
         </Toolbar>
       </AppBar>
 
-      {/* CONTENT */}
-      <Box className="app-content">
-        {section === "map" && <HeatMap />}
-
-        {section === "analytics" && <Analytics />}
-
-        {section === "scenario" && <Scenario />}
-
-        {section === "chat" && <Chat />}
-
-        {section === "alerts" && <Alerts />}
-      </Box>
-
-      {/* MOBILE HOME */}
+      {/* =========================================================
+          PAGE CONTENT
+         ========================================================= */}
       <Box
-        className="mobile-home"
-        onClick={() => setSection("map")}
         sx={{
-          cursor: "pointer",
+          flex: 1,
+          minHeight: 0,
+          overflow: "hidden",
         }}
       >
-        <HomeRoundedIcon fontSize="small" />
-
-        <Typography variant="caption">
-          Home
-        </Typography>
+        {section === "map" && <HeatMap />}
+        {section === "analytics" && <Analytics />}
+        {section === "scenario" && <Scenario />}
+        {section === "chat" && <Chat />}
+        {section === "alerts" && <Alerts />}
       </Box>
     </Box>
   );
