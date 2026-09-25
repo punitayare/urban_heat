@@ -7,7 +7,6 @@ import {
   CircularProgress,
   Divider,
   Paper,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -174,10 +173,13 @@ function HotspotsPanel() {
           </Typography>
         </Box>
 
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={1}
-          sx={{ width: { xs: "100%", sm: "auto" } }}
+        <Box
+          sx={{
+            display: "flex",
+            gap: 1,
+            flexWrap: "wrap",
+            width: { xs: "100%", sm: "auto" },
+          }}
         >
           <ToggleButtonGroup
             value={by}
@@ -226,7 +228,7 @@ function HotspotsPanel() {
             <ToggleButton value="ward">Ward</ToggleButton>
             <ToggleButton value="cell">Cell</ToggleButton>
           </ToggleButtonGroup>
-        </Stack>
+        </Box>
       </Box>
 
       <CardContent sx={{ p: { xs: 2, md: 3 } }}>
@@ -239,12 +241,20 @@ function HotspotsPanel() {
               justifyContent: "center",
             }}
           >
-            <Stack alignItems="center" spacing={1.5}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 1.5,
+              }}
+            >
               <CircularProgress size={30} sx={{ color: "#0b5d50" }} />
+
               <Typography variant="body2" color="text.secondary">
                 Loading hotspot intelligence...
               </Typography>
-            </Stack>
+            </Box>
           </Box>
         )}
 
@@ -494,10 +504,12 @@ function HotspotsPanel() {
                         }}
                       >
                         <TableCell>
-                          <Stack
-                            direction="row"
-                            spacing={1}
-                            alignItems="center"
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 1,
+                            }}
                           >
                             <Box
                               sx={{
@@ -513,6 +525,7 @@ function HotspotsPanel() {
                                   index < 3 ? "#0b5d50" : "#607a74",
                                 fontWeight: 800,
                                 fontSize: "0.68rem",
+                                flexShrink: 0,
                               }}
                             >
                               {index + 1}
@@ -527,7 +540,7 @@ function HotspotsPanel() {
                             >
                               {r.id}
                             </Typography>
-                          </Stack>
+                          </Box>
                         </TableCell>
 
                         <TableCell
@@ -633,12 +646,20 @@ function WeatherPanel() {
               justifyContent: "center",
             }}
           >
-            <Stack alignItems="center" spacing={1.5}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 1.5,
+              }}
+            >
               <CircularProgress size={30} sx={{ color: "#164e63" }} />
+
               <Typography variant="body2" color="text.secondary">
                 Loading weather forecast...
               </Typography>
-            </Stack>
+            </Box>
           </Box>
         )}
 
@@ -768,7 +789,13 @@ function WeatherPanel() {
             </Paper>
 
             {/* WEATHER SUMMARY */}
-            <Stack spacing={1.5}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 1.5,
+              }}
+            >
               <Paper
                 elevation={0}
                 sx={{
@@ -862,7 +889,7 @@ function WeatherPanel() {
                   Days of available forecast data
                 </Typography>
               </Paper>
-            </Stack>
+            </Box>
           </Box>
         )}
       </CardContent>
@@ -916,17 +943,20 @@ function TrendsPanel() {
 
       <CardContent sx={{ p: { xs: 2, md: 3 } }}>
         {isLoading && (
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={1.5}
-            sx={{ py: 2 }}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1.5,
+              py: 2,
+            }}
           >
             <CircularProgress size={24} sx={{ color: "#0b5d50" }} />
+
             <Typography variant="body2" color="text.secondary">
               Loading historical trend data...
             </Typography>
-          </Stack>
+          </Box>
         )}
 
         {data && !data.available && (
