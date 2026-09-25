@@ -6,15 +6,17 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+
 import {
   MapOutlined,
   BarChartOutlined,
   TuneOutlined,
-  ChatBubbleOutline,
+  ChatBubbleOutlined,
   NotificationsNoneOutlined,
-  PersonOutline,
+  PersonOutlined,
   KeyboardArrowDown,
 } from "@mui/icons-material";
+
 import { useState } from "react";
 
 import { SignInMenu } from "./auth/SignInMenu";
@@ -43,7 +45,7 @@ const SECTIONS = [
   {
     label: "Copilot",
     key: "chat",
-    icon: <ChatBubbleOutline />,
+    icon: <ChatBubbleOutlined />,
   },
   {
     label: "Alerts",
@@ -71,7 +73,7 @@ function App() {
       }}
     >
       {/* =====================================================
-          TOP NAVIGATION
+          NAVIGATION BAR
          ===================================================== */}
 
       <AppBar
@@ -88,8 +90,7 @@ function App() {
         <Toolbar
           sx={{
             height: 80,
-            minHeight:
-              "80px !important",
+            minHeight: "80px !important",
             px: {
               xs: 2,
               md: 3,
@@ -102,9 +103,7 @@ function App() {
              ================================================= */}
 
           <Box
-            onClick={() =>
-              setSection("map")
-            }
+            onClick={() => setSection("map")}
             sx={{
               display: "flex",
               alignItems: "center",
@@ -123,8 +122,7 @@ function App() {
                 width: 44,
                 height: 44,
                 borderRadius: "50%",
-                border:
-                  "2px solid #35D7A5",
+                border: "2px solid #35D7A5",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -136,15 +134,13 @@ function App() {
                 sx={{
                   width: 17,
                   height: 17,
-                  border:
-                    "2px solid #35D7A5",
-                  transform:
-                    "rotate(45deg)",
+                  border: "2px solid #35D7A5",
+                  transform: "rotate(45deg)",
                 }}
               />
             </Box>
 
-            {/* Brand text */}
+            {/* Brand */}
             <Box>
               <Typography
                 sx={{
@@ -155,8 +151,7 @@ function App() {
                   },
                   fontWeight: 800,
                   lineHeight: 1.05,
-                  letterSpacing:
-                    "-0.025em",
+                  letterSpacing: "-0.025em",
                 }}
               >
                 UrbanHeat AI
@@ -180,12 +175,12 @@ function App() {
           </Box>
 
           {/* =================================================
-              NAVIGATION
+              NAVIGATION TABS
              ================================================= */}
 
           <Tabs
             value={section}
-            onChange={(_, value) =>
+            onChange={(_, value: SectionKey) =>
               setSection(value)
             }
             variant="scrollable"
@@ -193,10 +188,9 @@ function App() {
             sx={{
               minHeight: 56,
 
-              "& .MuiTabs-flexContainer":
-                {
-                  gap: 0.5,
-                },
+              "& .MuiTabs-flexContainer": {
+                gap: 0.5,
+              },
 
               "& .MuiTab-root": {
                 minHeight: 56,
@@ -252,13 +246,11 @@ function App() {
             ))}
           </Tabs>
 
-          {/* Push user section to right */}
+          {/* Push user section to the right */}
           <Box sx={{ flex: 1 }} />
 
           {/* =================================================
-              USER AREA
-
-              Keep existing SignInMenu functionality.
+              DESKTOP USER DISPLAY
              ================================================= */}
 
           <Box
@@ -285,8 +277,10 @@ function App() {
                 color: "#FFFFFF",
               }}
             >
-              <PersonOutline
-                sx={{ fontSize: 21 }}
+              <PersonOutlined
+                sx={{
+                  fontSize: 21,
+                }}
               />
             </Box>
 
@@ -309,7 +303,10 @@ function App() {
             />
           </Box>
 
-          {/* Existing authentication component */}
+          {/* =================================================
+              EXISTING SIGN-IN MENU
+             ================================================= */}
+
           <Box
             sx={{
               display: {
@@ -324,10 +321,9 @@ function App() {
       </AppBar>
 
       {/* =====================================================
-          MAIN APPLICATION AREA
+          MAIN CONTENT
 
-          IMPORTANT:
-          Existing section functionality is untouched.
+          Existing components are kept unchanged.
          ===================================================== */}
 
       <Box
