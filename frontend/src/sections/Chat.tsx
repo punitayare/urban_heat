@@ -105,7 +105,7 @@ export function Chat() {
         bgcolor: "#f4f8f7",
       }}
     >
-      {/* TOP HEADER */}
+      {/* HEADER */}
       <Box
         sx={{
           px: { xs: 2, md: 4 },
@@ -119,7 +119,6 @@ export function Chat() {
           flexShrink: 0,
         }}
       >
-        {/* Decorative background */}
         <Box
           sx={{
             position: "absolute",
@@ -217,7 +216,6 @@ export function Chat() {
             interventions, or model explanations.
           </Typography>
 
-          {/* CAPABILITY PILLS */}
           <Box
             sx={{
               display: "flex",
@@ -249,7 +247,7 @@ export function Chat() {
         </Box>
       </Box>
 
-      {/* MAIN CHAT AREA */}
+      {/* MAIN CHAT */}
       <Box
         sx={{
           flex: 1,
@@ -266,7 +264,7 @@ export function Chat() {
             width: "100%",
           }}
         >
-          {/* INFORMATION CARD */}
+          {/* INFORMATION */}
           <Alert
             icon={<AutoAwesomeRoundedIcon fontSize="small" />}
             severity="info"
@@ -324,7 +322,7 @@ export function Chat() {
         </Box>
       </Box>
 
-      {/* INPUT AREA */}
+      {/* INPUT */}
       <Box
         sx={{
           flexShrink: 0,
@@ -377,10 +375,19 @@ export function Chat() {
                 }
               }}
               disabled={chat.isPending}
-              InputProps={{
-                disableUnderline: true,
-              }}
               sx={{
+                "& .MuiInput-root": {
+                  "&:before": {
+                    borderBottom: "none",
+                  },
+                  "&:after": {
+                    borderBottom: "none",
+                  },
+                  "&:hover:not(.Mui-disabled):before": {
+                    borderBottom: "none",
+                  },
+                },
+
                 "& .MuiInputBase-root": {
                   fontSize: 14,
                   py: 0.5,
@@ -824,7 +831,6 @@ function TurnBubble({ turn }: { turn: Turn }) {
         gap: 1,
       }}
     >
-      {/* AI AVATAR */}
       <Box
         sx={{
           width: 34,
@@ -856,7 +862,6 @@ function TurnBubble({ turn }: { turn: Turn }) {
           boxShadow: "0 3px 14px rgba(24,65,57,0.04)",
         }}
       >
-        {/* AGENT HEADER */}
         <Box
           sx={{
             display: "flex",
@@ -866,30 +871,22 @@ function TurnBubble({ turn }: { turn: Turn }) {
             mb: 1.2,
           }}
         >
-          <Box
+          <Chip
+            icon={<AutoAwesomeRoundedIcon />}
+            label={AGENT_LABEL[response.agent]}
+            size="small"
             sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 0.8,
-            }}
-          >
-            <Chip
-              icon={<AutoAwesomeRoundedIcon />}
-              label={AGENT_LABEL[response.agent]}
-              size="small"
-              sx={{
-                height: 28,
-                bgcolor: "#eaf5f2",
-                color: "#0b6b5a",
-                fontWeight: 700,
+              height: 28,
+              bgcolor: "#eaf5f2",
+              color: "#0b6b5a",
+              fontWeight: 700,
 
-                "& .MuiChip-icon": {
-                  color: "#168563",
-                  fontSize: 16,
-                },
-              }}
-            />
-          </Box>
+              "& .MuiChip-icon": {
+                color: "#168563",
+                fontSize: 16,
+              },
+            }}
+          />
 
           {response.layer && (
             <Chip
@@ -910,7 +907,6 @@ function TurnBubble({ turn }: { turn: Turn }) {
           )}
         </Box>
 
-        {/* RESPONSE */}
         <Box
           sx={{
             fontSize: 14,
@@ -972,12 +968,10 @@ function TurnBubble({ turn }: { turn: Turn }) {
           </ReactMarkdown>
         </Box>
 
-        {/* TOOL CALLS */}
         {response.tool_calls.length > 0 && (
           <ToolCallList calls={response.tool_calls} />
         )}
 
-        {/* MAP */}
         {response.layer && (
           <LayerMap layer={response.layer} />
         )}
