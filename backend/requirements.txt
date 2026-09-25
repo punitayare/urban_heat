@@ -1,0 +1,54 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+
+# HTTP / API
+httpx
+requests
+
+# Data processing
+numpy
+pandas
+scikit-learn
+
+# Geospatial / mapping
+geopandas
+shapely
+pyproj
+
+# Earth Engine
+earthengine-api
+
+# LLM / Agents
+langchain
+langchain-core
+langchain-community
+langgraph
+langchain-groq
+langchain-google-genai
+
+# RAG / Vector database
+chromadb
+
+# Database
+sqlalchemy
+psycopg2-binary
+
+# Supabase
+supabase
+
+# Authentication / security
+python-jose[cryptography]
+passlib[bcrypt]
+
+# File / report generation
+openpyxl
+reportlab
+
+# Email
+aiosmtplib
+
+# Utilities
+python-multipart
