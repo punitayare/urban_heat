@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Divider,
-  IconButton,
   Menu,
   MenuItem,
   Typography,
@@ -147,9 +146,8 @@ export function SignInMenu() {
           vertical: "top",
           horizontal: "right",
         }}
-        PaperProps={{
-          elevation: 0,
-          sx: {
+        sx={{
+          "& .MuiPaper-root": {
             mt: 1,
             minWidth: 250,
             borderRadius: "14px",
@@ -213,6 +211,7 @@ export function SignInMenu() {
 
         <Divider />
 
+        {/* PROFILE */}
         <MenuItem
           onClick={handleCloseMenu}
           sx={{
@@ -250,6 +249,7 @@ export function SignInMenu() {
           </Box>
         </MenuItem>
 
+        {/* SETTINGS */}
         <MenuItem
           onClick={handleCloseMenu}
           sx={{
@@ -289,6 +289,7 @@ export function SignInMenu() {
 
         <Divider />
 
+        {/* SIGN OUT */}
         <MenuItem
           onClick={handleSignOut}
           sx={{
