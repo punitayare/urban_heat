@@ -245,7 +245,7 @@ export function HeatMap() {
             "& .Mui-selected": {
               color: "#FFFFFF !important",
               backgroundColor:
-                "#087F78 !important",
+                "#087F70 !important",
             },
           }}
         >
